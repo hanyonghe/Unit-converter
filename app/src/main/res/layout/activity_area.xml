@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Area"
+    android:background="@drawable/background6"
+    tools:layout_editor_absoluteY="25dp"
+    >
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="1"
+        android:rowCount="1"
+        android:layout_weight="8"
+        android:padding="10dp"
+        android:layout_marginTop="30dp">
+    <androidx.cardview.widget.CardView
+        style="@style/CardView"
+        android:id="@+id/cv_area"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false"
+        android:layout_marginTop="80dp"
+        >
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:src="@drawable/area" />
+            <TextView
+                style="@style/TextView"
+                android:textColor="#171a09"
+                android:text="@string/area"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    </GridLayout>
+
+
+    <TextView
+        android:id="@+id/tv_from"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="From"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="15dp"
+        tools:layout_editor_absoluteX="353dp"
+        tools:layout_editor_absoluteY="104dp"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/et_from"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tv_from"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tv_from"
+        android:inputType="number"
+        android:background="#7c7e94"
+        android:textColor="#f7f8fa"
+        android:shadowRadius="2"
+        android:shadowColor="#0000ff"
+        android:shadowDx="2"
+        android:shadowDy="4"
+        android:textSize="20sp"/>
+
+
+    <Spinner
+        android:id="@+id/sp_area_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/et_from"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@+id/et_from"
+        android:layout_marginLeft="50dp"
+        android:background="#7b748c"
+         />
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/sp_area_from"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/et_from">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/updown"
+            android:background="@android:color/transparent"
+            android:onClick="switch_unit"/>
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/tv_to"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="To"
+        android:layout_alignTop="@+id/tv_from"
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="15dp"
+        tools:layout_editor_absoluteX="353dp"
+        tools:layout_editor_absoluteY="104dp"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/et_to"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tv_to"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tv_to"
+        android:textSize="20sp"
+        android:background="#7c7e94"
+        android:textColor="#f7f8fa"
+        android:inputType="number"
+        android:shadowRadius="2"
+        android:shadowColor="#0000ff"
+        android:shadowDx="2"
+        android:shadowDy="4"
+        />
+
+    <Spinner
+        android:id="@+id/sp_area_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/et_to"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@+id/et_to"
+        android:layout_marginLeft="50dp"
+        android:background="#7b748c"
+        />
+</RelativeLayout>

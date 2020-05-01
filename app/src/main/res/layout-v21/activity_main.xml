@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@drawable/background1">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unit Converter"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center"
+        android:textStyle="italic"
+        android:textColor="#000"
+        android:textSize="30dp"/>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:columnCount="2"
+        android:rowCount="1"
+        android:layout_weight="8"
+        android:padding="10dp"
+        android:layout_marginTop="30dp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_curruncy"
+            style="@style/cardView"
+            android:onClick="open_curruncy_page"
+            >
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/curruncy" />
+                <TextView
+                    style="@style/TextView"
+                    android:textColor="#232e2e"
+                    android:text="@string/curruncy"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_volume"
+            style="@style/cardView"
+            android:onClick="open_volume_page"
+            >
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/volume" />
+                <TextView
+                    style="@style/TextView"
+                    android:textColor="#232e2e"
+                    android:text="@string/volume"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:columnCount="2"
+        android:rowCount="1"
+        android:layout_weight="8"
+        android:padding="10dp"
+        android:layout_marginTop="30dp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_area"
+            style="@style/cardView"
+            android:onClick="open_area_page"
+            >
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/area" />
+                <TextView
+                    style="@style/TextView"
+                    android:textColor="#171a09"
+                    android:text="@string/area"
+                    />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_measure"
+            style="@style/cardView"
+            android:onClick="open_measure_page"
+            >
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/measure" />
+                <TextView
+                    style="@style/TextView"
+                    android:textColor="#171a09"
+                    android:text="@string/measure"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:columnCount="2"
+        android:rowCount="1"
+        android:layout_weight="8"
+        android:padding="10dp"
+        android:layout_marginTop="30dp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_temperature"
+            style="@style/cardView"
+            android:onClick="open_temperature_page"
+            >
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/temperature" />
+                <TextView
+                    style="@style/TextView"
+                    android:text="@string/temperature"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_weight"
+            style="@style/cardView"
+            android:onClick="open_weight_page"
+            >
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/weight" />
+                <TextView
+                    style="@style/TextView"
+                    android:text="@string/weight"
+                    />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+</LinearLayout>
