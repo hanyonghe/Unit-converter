@@ -10,21 +10,20 @@
     tools:layout_editor_absoluteY="25dp"
     >
 
+<!--    the switch button-->
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="1"
         android:rowCount="1"
-        android:layout_weight="8"
-        android:padding="10dp"
-        android:layout_marginTop="30dp">
+        android:layout_weight="8">
     <androidx.cardview.widget.CardView
         style="@style/CardView"
         android:id="@+id/cv_area"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         >
         <LinearLayout
             android:layout_marginTop="15dp"
@@ -53,12 +52,11 @@
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="From"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="205dp"
         android:layout_marginLeft="15dp"
         tools:layout_editor_absoluteX="353dp"
         tools:layout_editor_absoluteY="104dp"
-        android:textSize="23sp"
-        android:textStyle="bold"
+        style="@style/TextStyle"
         />
 
     <EditText
@@ -70,13 +68,8 @@
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/tv_from"
         android:inputType="number"
-        android:background="#7c7e94"
-        android:textColor="#f7f8fa"
-        android:shadowRadius="2"
-        android:shadowColor="#0000ff"
-        android:shadowDx="2"
-        android:shadowDy="4"
-        android:textSize="20sp"/>
+        style="@style/EditText"
+        />
 
 
     <Spinner
@@ -86,8 +79,6 @@
         android:layout_alignBottom="@+id/et_from"
         android:layout_marginStart="6dp"
         android:layout_toEndOf="@+id/et_from"
-        android:layout_marginLeft="50dp"
-        android:background="#7b748c"
          />
 
     <LinearLayout
@@ -120,8 +111,7 @@
         android:layout_marginLeft="15dp"
         tools:layout_editor_absoluteX="353dp"
         tools:layout_editor_absoluteY="104dp"
-        android:textSize="23sp"
-        android:textStyle="bold"
+        style="@style/TextStyle"
         />
 
     <EditText
@@ -132,14 +122,9 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/tv_to"
-        android:textSize="20sp"
-        android:background="#7c7e94"
-        android:textColor="#f7f8fa"
-        android:inputType="number"
-        android:shadowRadius="2"
-        android:shadowColor="#0000ff"
-        android:shadowDx="2"
-        android:shadowDy="4"
+        style="@style/EditText"
+        android:inputType="none"
+        android:editable="false"
         />
 
     <Spinner
@@ -150,6 +135,54 @@
         android:layout_marginStart="6dp"
         android:layout_toEndOf="@+id/et_to"
         android:layout_marginLeft="50dp"
-        android:background="#7b748c"
+
         />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/clear_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/et_from"
+        android:layout_alignBottom="@+id/et_from"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="-94dp"
+        android:text="@string/clear"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textStyle="italic"
+        android:textColor="#171a09"
+        app:backgroundTint="#b5842f"
+        android:onClick="clear_input"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/et_from"
+        android:layout_alignBottom="@+id/et_from"
+        android:layout_marginStart="110dp"
+        android:layout_marginBottom="-270dp"
+        android:text="@string/history"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textStyle="italic"
+        android:textColor="#171a09"
+        app:backgroundTint="#b5842f"
+        android:onClick="save_result"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/et_from"
+        android:layout_alignBottom="@+id/et_from"
+        android:layout_marginStart="-20dp"
+        android:layout_marginBottom="-270dp"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textStyle="italic"
+        android:textColor="#171a09"
+        app:backgroundTint="#b5842f"
+        android:onClick="view_history"/>
+
 </RelativeLayout>

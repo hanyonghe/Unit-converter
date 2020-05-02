@@ -58,23 +58,20 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         et_form.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             @Override
             public void afterTextChanged(Editable s) {
-                calculate();
+                calculate_from();
             }
         });
 
     }
 
+    //following code handle when the user pick a option form the spinner
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Spinner spinner = (Spinner)parent;
@@ -101,7 +98,7 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
                     from_option = 5;
                     break;
             }
-            calculate();
+            calculate_from();
         }
         if(spinner.getId()==R.id.sp_area_to){
 
@@ -127,12 +124,12 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
                     to_option = 5;
                     break;
             }
-            calculate();
+            calculate_from();
         }
 
     }
 
-    private void calculate() {
+    private void calculate_from() {
         EditText et_to = findViewById(R.id.et_to);
         EditText et_from = findViewById(R.id.et_from);
 
@@ -175,6 +172,18 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
         Spinner spinner_to = findViewById(R.id.sp_area_to);
         spinner_from.setSelection(to_option);
         spinner_to.setSelection(from_option);
-        calculate();
+        calculate_from();
+    }
+
+    public void clear_input(View view) {
+        EditText et_from = findViewById(R.id.et_from);
+        et_from.setText("");
+        calculate_from();
+    }
+
+    public void save_result(View view) {
+    }
+
+    public void view_history(View view) {
     }
 }
