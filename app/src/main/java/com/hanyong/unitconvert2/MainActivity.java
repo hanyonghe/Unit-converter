@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void open_measure_page(View view) {
-        Intent i = new Intent(this,Measure.class);
+    public void open_length_page(View view) {
+        Intent i = new Intent(this,Length.class);
         startActivity(i);
     }
 }

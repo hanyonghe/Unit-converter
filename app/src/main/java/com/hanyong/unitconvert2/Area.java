@@ -1,28 +1,35 @@
 package com.hanyong.unitconvert2;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 
 public class Area extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     //declare the spinner spinner position
     private static int from_option = 0;
     private static int to_option = 1;
+    private static boolean isFragmentShow = false;
 
+    private static String fragement_text = "";
     // all unit will be tranform to square inch first
     private static double from_rate = 0; // from_unit to square inch
     private static double to_rate = 0; // to_unit to square inch
@@ -34,9 +41,10 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area);
 
+        final RecordDB db = new RecordDB(this);
         //configure the spinner event listenner
         Spinner spinner_to = findViewById(R.id.sp_area_to);
-        Spinner spinner_from = findViewById(R.id.sp_area_from);
+        Spinner spinner_from = findViewById(R.id.area_spinner_from);
 
         ArrayAdapter<String> adapter_from = new ArrayAdapter<String>(this,R.layout.my_spinner,area_unit);
         adapter_from.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -46,15 +54,15 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
         ArrayAdapter<String> adapter_to = new ArrayAdapter<String>(this,R.layout.my_spinner,area_unit);
         adapter_to.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_to.setAdapter(adapter_to);
-        spinner_to.setSelection(1);                            // set default selection for the second spinner
+        spinner_to.setSelection(1);                // set default selection for the second spinner
         spinner_to.setOnItemSelectedListener(this);
 
-
         // set a Text-change listenner for 'from' line edittext element
-        EditText et_form = findViewById(R.id.et_from);
+        EditText et_form = findViewById(R.id.area_editText_from);
         // set focus on the edittext
         et_form.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert imm != null;
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         et_form.addTextChangedListener(new TextWatcher() {
             @Override
@@ -68,14 +76,57 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
                 calculate_from();
             }
         });
+        //The toggle button control the visibility of the fragment
+        ToggleButton toggle = findViewById(R.id.area_toggleButton_history);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    showHistory();
+                } else {
+                    // hide the record
+                    history_fragment fragment = new history_fragment();
+                    getSupportFragmentManager().beginTransaction().remove(fragment);
+                    LinearLayout ll = findViewById(R.id.area_fragment_layout);
+                    ll.setVisibility(LinearLayout.INVISIBLE);
+                    isFragmentShow = false;
+                }
+            }
+
+        });
 
     }
 
-    //following code handle when the user pick a option form the spinner
+    private void showHistory() {
+        //get records from database
+        RecordDB db = new RecordDB(this);
+        ArrayList<Record> records = db.getRecord();
+        StringBuilder history = new StringBuilder();
+        if(records.size()!=0) {
+            for (Record record : records) {
+                history.append(record.getFrom_amount()).append(" "+record.getFrom_unit()).append(" = ").
+                        append(record.getTo_amount()).append(" "+record.getTo_unit()).append(";\n");
+                Log.d("retrieve",record.getTo_unit());
+            }
+        }
+        fragement_text = history.toString();
+
+        //sent the records to fragment.
+        history_fragment fragment = new history_fragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("record",fragement_text);
+        fragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.area_fragment_container,fragment).commit();
+
+        LinearLayout ll = findViewById(R.id.area_fragment_layout);
+        ll.setVisibility(LinearLayout.VISIBLE);
+        isFragmentShow = true;
+    }
+
+    //handle when the user pick a option form the spinner
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Spinner spinner = (Spinner)parent;
-        if(spinner.getId()==R.id.sp_area_from){
+        if(spinner.getId()==R.id.area_spinner_from){
 
             //convert rate square meter
             switch (position){
@@ -130,8 +181,8 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
     }
 
     private void calculate_from() {
-        EditText et_to = findViewById(R.id.et_to);
-        EditText et_from = findViewById(R.id.et_from);
+        EditText et_to = findViewById(R.id.area_editText_to);
+        EditText et_from = findViewById(R.id.area_editText_from);
 
         // get user input
         String temp = et_from.getText().toString();
@@ -168,7 +219,7 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
 
     public void switch_unit(View view) {
         //switch the spinner selected option
-        Spinner spinner_from = findViewById(R.id.sp_area_from);
+        Spinner spinner_from = findViewById(R.id.area_spinner_from);
         Spinner spinner_to = findViewById(R.id.sp_area_to);
         spinner_from.setSelection(to_option);
         spinner_to.setSelection(from_option);
@@ -176,14 +227,46 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
     }
 
     public void clear_input(View view) {
-        EditText et_from = findViewById(R.id.et_from);
+        EditText et_from = findViewById(R.id.area_editText_from);
         et_from.setText("");
         calculate_from();
+        clearDB();
+        if(isFragmentShow = true){
+            showHistory();
+        }
     }
 
     public void save_result(View view) {
+        try{
+        calculate_from();
+        double from_amount=0,to_amount=0;
+        EditText et_from = findViewById(R.id.area_editText_from);
+        EditText et_to = findViewById(R.id.area_editText_to);
+        String text_from = et_from.getText().toString();
+        String text_to  = et_to.getText().toString();
+        if(text_from ==""|text_from ==""){
+            Toast.makeText(this,"Make a convertion before save",Toast.LENGTH_SHORT).show();
+        }
+        from_amount = Double.parseDouble(text_from);
+        to_amount = Double.parseDouble(text_to);
+        Record record = new Record(from_amount,to_amount,area_unit[from_option],area_unit[to_option]);
+        Toast.makeText(this,area_unit[from_option]+";"+area_unit[to_option],Toast.LENGTH_SHORT).show();
+        RecordDB db = new RecordDB(this);
+        long insertId = db.insertRecord(record);
+        if(insertId > 0){
+            Toast.makeText(this, "Record saved", Toast.LENGTH_SHORT).show();
+            showHistory();
+        }else{
+            Toast.makeText(this, "Record not saved", Toast.LENGTH_SHORT).show();
+        }}
+        catch (Throwable e){}
     }
 
-    public void view_history(View view) {
+    public void clearDB(){
+        RecordDB db = new RecordDB(this);
+        db.deleteRecords();
+        Toast.makeText(this, "Database clear", Toast.LENGTH_SHORT).show();
     }
+
+
 }

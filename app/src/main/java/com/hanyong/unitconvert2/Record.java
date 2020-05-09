@@ -1,7 +1,7 @@
 package com.hanyong.unitconvert2;
 
 public class Record {
-
+    private static long index= 2l;
     private long id;
     private double from_amount;
     private double to_amount;
@@ -15,6 +15,14 @@ public class Record {
         this.to_amount = to_amount;
         this.from_unit = from_unit;
         this.to_unit = to_unit;
+    }
+    public Record( double from_amount, double to_amount,
+                  String from_unit, String to_unit) {
+        this.from_amount = from_amount;
+        this.to_amount = to_amount;
+        this.from_unit = from_unit;
+        this.to_unit = to_unit;
+        this.id = index++;
     }
 
     public long getId() {

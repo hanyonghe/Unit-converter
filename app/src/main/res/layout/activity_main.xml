@@ -30,21 +30,8 @@
         android:layout_rowWeight="1"
         android:layout_columnWeight="1"
         android:layout_margin="15"
-
         >
 
-
     </android.support.v7.widget.CardView>
-
-
-
     </GridLayout>
-
-
-
-
-
-
-
-
 </LinearLayout>

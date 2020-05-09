@@ -5,8 +5,8 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Curruncy"
-    android:background="@drawable/background5"
+    tools:context=".Length"
+    android:background="@drawable/background4"
     tools:layout_editor_absoluteY="25dp"
     >
 
@@ -19,7 +19,7 @@
         android:layout_weight="8">
         <androidx.cardview.widget.CardView
             style="@style/CardView"
-            android:id="@+id/curruncy_cardView_icon"
+            android:id="@+id/length_cardView_icon"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardElevation="0dp"
             app:cardPreventCornerOverlap="false"
@@ -36,11 +36,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/curruncy" />
+                    android:src="@drawable/length" />
                 <TextView
                     style="@style/TextView"
                     android:textColor="#171a09"
-                    android:text="@string/curruncy"
+                    android:text="@string/length"
                     />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -48,7 +48,7 @@
 
 
     <TextView
-        android:id="@+id/curruncy_textview_from"
+        android:id="@+id/length_textview_from"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="From"
@@ -60,34 +60,34 @@
         />
 
     <EditText
-        android:id="@+id/curruncy_editText_from"
+        android:id="@+id/length_editText_from"
         android:layout_width="150dp"
         android:layout_height="35dp"
-        android:layout_below="@+id/curruncy_textview_from"
+        android:layout_below="@+id/length_textview_from"
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/curruncy_textview_from"
+        android:layout_toEndOf="@+id/length_textview_from"
         android:inputType="number"
         style="@style/EditText"
         />
 
 
     <Spinner
-        android:id="@+id/curruncy_spinner_from"
+        android:id="@+id/length_spinner_from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/curruncy_editText_from"
+        android:layout_alignBottom="@+id/length_editText_from"
         android:layout_marginStart="6dp"
-        android:layout_toEndOf="@+id/curruncy_editText_from"
+        android:layout_toEndOf="@+id/length_editText_from"
         />
 
     <LinearLayout
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_below="@+id/curruncy_spinner_from"
+        android:layout_below="@+id/length_spinner_from"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:layout_toEndOf="@+id/curruncy_editText_from">
+        android:layout_toEndOf="@+id/length_editText_from">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -102,11 +102,11 @@
 
 
     <TextView
-        android:id="@+id/curruncy_textView_to"
+        android:id="@+id/length_textView_to"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="To"
-        android:layout_alignTop="@+id/curruncy_textview_from"
+        android:layout_alignTop="@+id/length_textview_from"
         android:layout_marginTop="170dp"
         android:layout_marginLeft="15dp"
         tools:layout_editor_absoluteX="353dp"
@@ -115,35 +115,35 @@
         />
 
     <EditText
-        android:id="@+id/curruncy_editText_to"
+        android:id="@+id/length_editText_to"
         android:layout_width="150dp"
         android:layout_height="35dp"
-        android:layout_below="@+id/curruncy_textView_to"
+        android:layout_below="@+id/length_textView_to"
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/curruncy_textView_to"
+        android:layout_toEndOf="@+id/length_textView_to"
         style="@style/EditText"
         android:inputType="none"
         android:editable="false"
         />
 
     <Spinner
-        android:id="@+id/sp_curruncy_to"
+        android:id="@+id/sp_length_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/curruncy_editText_to"
+        android:layout_alignBottom="@+id/length_editText_to"
         android:layout_marginStart="6dp"
-        android:layout_toEndOf="@+id/curruncy_editText_to"
+        android:layout_toEndOf="@+id/length_editText_to"
         android:layout_marginLeft="50dp"
 
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/curruncy_button_clear"
+        android:id="@+id/length_button_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/curruncy_editText_from"
-        android:layout_alignBottom="@+id/curruncy_editText_from"
+        android:layout_alignStart="@+id/length_editText_from"
+        android:layout_alignBottom="@+id/length_editText_from"
         android:layout_marginStart="11dp"
         android:layout_marginBottom="-94dp"
         android:text="@string/clear"
@@ -155,11 +155,11 @@
         android:onClick="clear_input"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/curruncy_button_save"
+        android:id="@+id/length_button_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/curruncy_editText_from"
-        android:layout_alignBottom="@+id/curruncy_editText_from"
+        android:layout_alignStart="@+id/length_editText_from"
+        android:layout_alignBottom="@+id/length_editText_from"
         android:layout_marginStart="-20dp"
         android:layout_marginBottom="-270dp"
         android:text="@string/save"
@@ -171,11 +171,11 @@
         android:onClick="save_result"/>
 
     <ToggleButton
-        android:id="@+id/curruncy_toggleButton_history"
+        android:id="@+id/length_toggleButton_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/curruncy_editText_from"
-        android:layout_alignBottom="@+id/curruncy_editText_from"
+        android:layout_alignStart="@+id/length_editText_from"
+        android:layout_alignBottom="@+id/length_editText_from"
         android:layout_marginStart="110dp"
         android:layout_marginBottom="-270dp"
         android:text="@string/history"
@@ -187,15 +187,15 @@
         android:textOn="@string/hide_history"
         android:textOff="@string/show_history" />
     <LinearLayout
-        android:id="@+id/curruncy_fragment_layout"
+        android:id="@+id/length_fragment_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignTop="@+id/curruncy_toggleButton_history"
+        android:layout_alignTop="@+id/length_toggleButton_history"
         android:layout_marginTop="60dp"
         android:visibility="invisible">
         <androidx.fragment.app.FragmentContainerView
             android:name="com.hanyong.unitconvert2.history_fragment"
-            android:id="@+id/curruncy_fragment_container"
+            android:id="@+id/length_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />

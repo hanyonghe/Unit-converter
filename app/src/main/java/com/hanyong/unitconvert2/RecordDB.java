@@ -41,6 +41,8 @@ public class RecordDB {
     public static final String DROP_TABLE =
             "DROP TABLE IF EXISTS " + RECORD_TABLE;
 
+
+
     private static class DBHelper extends SQLiteOpenHelper {
 
         public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -51,7 +53,9 @@ public class RecordDB {
         public void onCreate(SQLiteDatabase db) {
 //            create table
             db.execSQL(CREATE_TABLE);
+//            insert one row
         }
+
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -76,7 +80,7 @@ public class RecordDB {
     //get records from the datebase
     public ArrayList<Record> getRecord(){
         this.openReadableDB();
-        Cursor cursor = db.query(RECORD_TABLE,null,null,null,null,null,null,"4");
+      Cursor cursor = db.query(RECORD_TABLE, null, null, null, null, null, RECORD_ID+" DESC","10");
         ArrayList<Record> records = new ArrayList<Record>();
         while(cursor.moveToNext()){
             records.add(getRecordFromCursor(cursor));
@@ -101,7 +105,7 @@ public class RecordDB {
                  return record;
             }
             catch (Exception e){
-                Log.d("Exception"," e");
+                Log.d("Exception",e+"");
                 return null;
             }
         }
@@ -109,15 +113,19 @@ public class RecordDB {
 
     public long insertRecord(Record record){
         ContentValues cv = new ContentValues();
-        cv.put(RECORD_ID,record.getId());
         cv.put(FROM_AMOUNT,record.getFrom_amount());
         cv.put(TO_AMOUNT,record.getTo_amount());
         cv.put(FROM_UNIT,record.getFrom_unit());
-        cv.put(TO_AMOUNT,record.getTo_amount());
-        this.openReadableDB();
+        cv.put(TO_UNIT,record.getTo_unit());
+        this.openWritableDB();
         long rowID = db.insert(RECORD_TABLE,null,cv);
         this.closeDB();
         return rowID;
+    }
+    public void deleteRecords(){
+        this.openWritableDB();
+        db.execSQL("DELETE FROM " + RECORD_TABLE + " WHERE " + RECORD_ID + " != -1" );
+        this.closeDB();
     }
 
 }

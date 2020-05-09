@@ -85,7 +85,7 @@
         android:padding="10dp"
         android:layout_marginTop="30dp">
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_area"
+            android:id="@+id/area_cardView_icon"
             style="@style/cardView"
             android:onClick="open_area_page"
             >
@@ -110,9 +110,9 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_measure"
+            android:id="@+id/cv_length"
             style="@style/cardView"
-            android:onClick="open_measure_page"
+            android:onClick="open_length_page"
             >
 
             <LinearLayout
@@ -126,11 +126,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/measure" />
+                    android:src="@drawable/length" />
                 <TextView
                     style="@style/TextView"
                     android:textColor="#171a09"
-                    android:text="@string/measure"/>
+                    android:text="@string/length"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

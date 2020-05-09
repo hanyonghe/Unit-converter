@@ -4,7 +4,7 @@
     <string name="volume">volume</string>
     <string name="weight">weight</string>
     <string name="area">area</string>
-    <string name="measure">measure</string>
+    <string name="length">length</string>
     <string name="temperature">temperature</string>
     <string name="title_activity_area">area</string>
     <!-- Strings used for fragments for navigation -->
@@ -18,5 +18,11 @@
     <string name="clear">clear</string>
     <string name="history">history</string>
     <string name="save">save</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hide_history">hide history</string>
+    <string name="show_history">show history</string>
+    <string name="clare_history">clare history</string>
 
 </resources>

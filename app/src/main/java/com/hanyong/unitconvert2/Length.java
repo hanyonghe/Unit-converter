@@ -1,6 +1,5 @@
 package com.hanyong.unitconvert2;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,17 +12,18 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
-public class Temperature extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class Length extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     //declare the spinner spinner position
     private static int from_option = 0;
     private static int to_option = 1;
@@ -31,32 +31,34 @@ public class Temperature extends AppCompatActivity implements AdapterView.OnItem
 
     private static String fragement_text = "";
     // all unit will be tranform to square inch first
+    private static double from_rate = 0; // from_unit to square inch
+    private static double to_rate = 0; // to_unit to square inch
 
-    private String[] temperature_unit = {"Kevin K","Celsius","Fehenheit"};
+    private String[] length_unit = {"mile","kilometer","meter","yard","foot","inch","centimeter","millimeter"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_temperature);
+        setContentView(R.layout.activity_length);
 
         final RecordDB db = new RecordDB(this);
         //configure the spinner event listenner
-        Spinner spinner_to = findViewById(R.id.sp_temperature_to);
-        Spinner spinner_from = findViewById(R.id.temperature_spinner_from);
+        Spinner spinner_to = findViewById(R.id.sp_length_to);
+        Spinner spinner_from = findViewById(R.id.length_spinner_from);
 
-        ArrayAdapter<String> adapter_from = new ArrayAdapter<String>(this,R.layout.my_spinner,temperature_unit);
+        ArrayAdapter<String> adapter_from = new ArrayAdapter<String>(this,R.layout.my_spinner,length_unit);
         adapter_from.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_from.setAdapter(adapter_from);
         spinner_from.setOnItemSelectedListener(this);
 
-        ArrayAdapter<String> adapter_to = new ArrayAdapter<String>(this,R.layout.my_spinner,temperature_unit);
+        ArrayAdapter<String> adapter_to = new ArrayAdapter<String>(this,R.layout.my_spinner,length_unit);
         adapter_to.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_to.setAdapter(adapter_to);
         spinner_to.setSelection(1);                // set default selection for the second spinner
         spinner_to.setOnItemSelectedListener(this);
 
         // set a Text-change listenner for 'from' line edittext element
-        EditText et_form = findViewById(R.id.temperature_editText_from);
+        EditText et_form = findViewById(R.id.length_editText_from);
         // set focus on the edittext
         et_form.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -75,7 +77,7 @@ public class Temperature extends AppCompatActivity implements AdapterView.OnItem
             }
         });
         //The toggle button control the visibility of the fragment
-        ToggleButton toggle = findViewById(R.id.temperature_toggleButton_history);
+        ToggleButton toggle = findViewById(R.id.length_toggleButton_history);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -84,7 +86,7 @@ public class Temperature extends AppCompatActivity implements AdapterView.OnItem
                     // hide the record
                     history_fragment fragment = new history_fragment();
                     getSupportFragmentManager().beginTransaction().remove(fragment);
-                    LinearLayout ll = findViewById(R.id.temperature_fragment_layout);
+                    LinearLayout ll = findViewById(R.id.length_fragment_layout);
                     ll.setVisibility(LinearLayout.INVISIBLE);
                     isFragmentShow = false;
                 }
@@ -113,9 +115,9 @@ public class Temperature extends AppCompatActivity implements AdapterView.OnItem
         Bundle bundle = new Bundle();
         bundle.putString("record",fragement_text);
         fragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.temperature_fragment_container,fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.length_fragment_container,fragment).commit();
 
-        LinearLayout ll = findViewById(R.id.temperature_fragment_layout);
+        LinearLayout ll = findViewById(R.id.length_fragment_layout);
         ll.setVisibility(LinearLayout.VISIBLE);
         isFragmentShow = true;
     }
@@ -124,34 +126,64 @@ public class Temperature extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Spinner spinner = (Spinner)parent;
-        if(spinner.getId()==R.id.temperature_spinner_from){
+        if(spinner.getId()==R.id.length_spinner_from){
 
             //convert rate square meter
             switch (position){
-                case 0:
+                case 0: from_rate = 0.000568182;
                     from_option = 0;
                     break;
-                case 1:
+                case 1: from_rate = 0.000914400292608;
                     from_option = 1;
                     break;
-                case 2:
+                case 2: from_rate = 0.91440029260800004263;
                     from_option = 2;
+                    break;
+                case 3: from_rate = 1;
+                    from_option = 3;
+                    break;
+                case 4: from_rate = 3;
+                    from_option = 4;
+                    break;
+                case 5: from_rate = 36;
+                    from_option = 5;
+                    break;
+                case 6: from_rate = 91.44;
+                    from_option = 6;
+                    break;
+                case 7: from_rate = 914.4;
+                    from_option = 7;
                     break;
             }
             calculate_from();
         }
-        if(spinner.getId()==R.id.sp_temperature_to){
+        if(spinner.getId()==R.id.sp_length_to){
 
             //convert rate square meter
             switch (position){
-                case 0:
+                case 0: to_rate = 0.000568182;
                     to_option = 0;
                     break;
-                case 1:
+                case 1: to_rate = 0.000914400292608;
                     to_option = 1;
                     break;
-                case 2:
+                case 2: to_rate = 0.91440029260800004263;
                     to_option = 2;
+                    break;
+                case 3: to_rate = 1;
+                    to_option = 3;
+                    break;
+                case 4: to_rate = 3;
+                    to_option = 4;
+                    break;
+                case 5: to_rate = 36;
+                    to_option = 5;
+                    break;
+                case 6: to_rate = 91.44;
+                    to_option = 6;
+                    break;
+                case 7: to_rate = 914.4;
+                    to_option = 7;
                     break;
             }
             calculate_from();
@@ -160,27 +192,20 @@ public class Temperature extends AppCompatActivity implements AdapterView.OnItem
     }
 
     private void calculate_from() {
-        EditText et_to = findViewById(R.id.temperature_editText_to);
-        EditText et_from = findViewById(R.id.temperature_editText_from);
+        EditText et_to = findViewById(R.id.length_editText_to);
+        EditText et_from = findViewById(R.id.length_editText_from);
 
         // get user input
         String temp = et_from.getText().toString();
-        double from_amount = 0,to_amount=0;
+        double from_amount = 0;
         if(!"".equals(temp)) from_amount = Double.parseDouble(temp);
 
         //calculate the number should display in the 'to' line, and display it
-        if(from_option == to_option) to_amount=0;
-        if(from_option == 0 && to_option == 1) to_amount = from_amount -273.15;
-        if(from_option == 1 && to_option == 0) to_amount = from_amount +273.15;
-        if(from_option == 0 && to_option == 2) to_amount = (from_amount -273.15) * 9 / 5 + 32;
-        if(from_option == 2 && to_option == 0) to_amount = (from_amount -32) * 5 / 9 + 273.15;
-        if(from_option == 1 && to_option == 2) to_amount = from_amount * 9 / 5 + 32;
-        if(from_option == 2 && to_option == 1) to_amount = (from_amount -32) * 5 / 9;
-
+        double to_amount = from_amount * to_rate/ from_rate ;
         DecimalFormat df = new DecimalFormat("#.00000");
         String temp1 = df.format(to_amount);
 //         if the string is too long, the edittext in the 'to' line should get higher
-        final LayoutParams layoutparams = (RelativeLayout.LayoutParams) et_to.getLayoutParams();
+        final LayoutParams layoutparams = (LayoutParams) et_to.getLayoutParams();
         if(temp1.length()>13){
             layoutparams.height = 140;
             et_to.setLayoutParams(layoutparams);
@@ -205,15 +230,15 @@ public class Temperature extends AppCompatActivity implements AdapterView.OnItem
 
     public void switch_unit(View view) {
         //switch the spinner selected option
-        Spinner spinner_from = findViewById(R.id.temperature_spinner_from);
-        Spinner spinner_to = findViewById(R.id.sp_temperature_to);
+        Spinner spinner_from = findViewById(R.id.length_spinner_from);
+        Spinner spinner_to = findViewById(R.id.sp_length_to);
         spinner_from.setSelection(to_option);
         spinner_to.setSelection(from_option);
         calculate_from();
     }
 
     public void clear_input(View view) {
-        EditText et_from = findViewById(R.id.temperature_editText_from);
+        EditText et_from = findViewById(R.id.length_editText_from);
         et_from.setText("");
         calculate_from();
         clearDB();
@@ -226,14 +251,14 @@ public class Temperature extends AppCompatActivity implements AdapterView.OnItem
         try{
         calculate_from();
         double from_amount=0,to_amount=0;
-        EditText et_from = findViewById(R.id.temperature_editText_from);
-        EditText et_to = findViewById(R.id.temperature_editText_to);
+        EditText et_from = findViewById(R.id.length_editText_from);
+        EditText et_to = findViewById(R.id.length_editText_to);
         String text_from = et_from.getText().toString();
         String text_to  = et_to.getText().toString();
         from_amount = Double.parseDouble(text_from);
         to_amount = Double.parseDouble(text_to);
-        Record record = new Record(from_amount,to_amount,temperature_unit[from_option],temperature_unit[to_option]);
-        Toast.makeText(this,temperature_unit[from_option]+";"+temperature_unit[to_option],Toast.LENGTH_SHORT).show();
+        Record record = new Record(from_amount,to_amount,length_unit[from_option],length_unit[to_option]);
+        Toast.makeText(this,length_unit[from_option]+";"+length_unit[to_option],Toast.LENGTH_SHORT).show();
         RecordDB db = new RecordDB(this);
         long insertId = db.insertRecord(record);
         if(insertId > 0){

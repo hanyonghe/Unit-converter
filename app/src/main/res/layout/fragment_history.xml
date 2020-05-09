@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".history_fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/tv_history"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#6b9ded"
+        style="@style/TextStyle"
+        android:textSize="18sp"/>
+
+
+<!--    save this button for later, I do not know how to do yet-->
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/bt_clare_history"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:backgroundTint="#b5842f"-->
+<!--        android:text="@string/clare_history"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="#171a09"-->
+<!--        android:textSize="25sp"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:textStyle="italic" />-->
+
+</FrameLayout>

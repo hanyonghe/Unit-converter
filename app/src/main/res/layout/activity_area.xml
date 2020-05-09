@@ -19,7 +19,7 @@
         android:layout_weight="8">
     <androidx.cardview.widget.CardView
         style="@style/CardView"
-        android:id="@+id/cv_area"
+        android:id="@+id/area_cardView_icon"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
@@ -48,7 +48,7 @@
 
 
     <TextView
-        android:id="@+id/tv_from"
+        android:id="@+id/area_textview_from"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="From"
@@ -60,34 +60,34 @@
         />
 
     <EditText
-        android:id="@+id/et_from"
+        android:id="@+id/area_editText_from"
         android:layout_width="150dp"
         android:layout_height="35dp"
-        android:layout_below="@+id/tv_from"
+        android:layout_below="@+id/area_textview_from"
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/tv_from"
+        android:layout_toEndOf="@+id/area_textview_from"
         android:inputType="number"
         style="@style/EditText"
         />
 
 
     <Spinner
-        android:id="@+id/sp_area_from"
+        android:id="@+id/area_spinner_from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/et_from"
+        android:layout_alignBottom="@+id/area_editText_from"
         android:layout_marginStart="6dp"
-        android:layout_toEndOf="@+id/et_from"
+        android:layout_toEndOf="@+id/area_editText_from"
          />
 
     <LinearLayout
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_below="@+id/sp_area_from"
+        android:layout_below="@+id/area_spinner_from"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:layout_toEndOf="@+id/et_from">
+        android:layout_toEndOf="@+id/area_editText_from">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -102,11 +102,11 @@
 
 
     <TextView
-        android:id="@+id/tv_to"
+        android:id="@+id/area_textView_to"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="To"
-        android:layout_alignTop="@+id/tv_from"
+        android:layout_alignTop="@+id/area_textview_from"
         android:layout_marginTop="170dp"
         android:layout_marginLeft="15dp"
         tools:layout_editor_absoluteX="353dp"
@@ -115,13 +115,13 @@
         />
 
     <EditText
-        android:id="@+id/et_to"
+        android:id="@+id/area_editText_to"
         android:layout_width="150dp"
         android:layout_height="35dp"
-        android:layout_below="@+id/tv_to"
+        android:layout_below="@+id/area_textView_to"
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/tv_to"
+        android:layout_toEndOf="@+id/area_textView_to"
         style="@style/EditText"
         android:inputType="none"
         android:editable="false"
@@ -131,19 +131,19 @@
         android:id="@+id/sp_area_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/et_to"
+        android:layout_alignBottom="@+id/area_editText_to"
         android:layout_marginStart="6dp"
-        android:layout_toEndOf="@+id/et_to"
+        android:layout_toEndOf="@+id/area_editText_to"
         android:layout_marginLeft="50dp"
 
         />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/clear_text"
+        android:id="@+id/area_button_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/et_from"
-        android:layout_alignBottom="@+id/et_from"
+        android:layout_alignStart="@+id/area_editText_from"
+        android:layout_alignBottom="@+id/area_editText_from"
         android:layout_marginStart="11dp"
         android:layout_marginBottom="-94dp"
         android:text="@string/clear"
@@ -155,26 +155,11 @@
         android:onClick="clear_input"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/save"
+        android:id="@+id/area_button_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/et_from"
-        android:layout_alignBottom="@+id/et_from"
-        android:layout_marginStart="110dp"
-        android:layout_marginBottom="-270dp"
-        android:text="@string/history"
-        android:textAllCaps="false"
-        android:textSize="25sp"
-        android:textStyle="italic"
-        android:textColor="#171a09"
-        app:backgroundTint="#b5842f"
-        android:onClick="save_result"/>
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/et_from"
-        android:layout_alignBottom="@+id/et_from"
+        android:layout_alignStart="@+id/area_editText_from"
+        android:layout_alignBottom="@+id/area_editText_from"
         android:layout_marginStart="-20dp"
         android:layout_marginBottom="-270dp"
         android:text="@string/save"
@@ -183,6 +168,37 @@
         android:textStyle="italic"
         android:textColor="#171a09"
         app:backgroundTint="#b5842f"
-        android:onClick="view_history"/>
+        android:onClick="save_result"/>
+
+    <ToggleButton
+        android:id="@+id/area_toggleButton_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/area_editText_from"
+        android:layout_alignBottom="@+id/area_editText_from"
+        android:layout_marginStart="110dp"
+        android:layout_marginBottom="-270dp"
+        android:text="@string/history"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        android:textStyle="italic"
+        android:textColor="#171a09"
+        android:background="#b5842f"
+        android:textOn="@string/hide_history"
+        android:textOff="@string/show_history" />
+    <LinearLayout
+        android:id="@+id/area_fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/area_toggleButton_history"
+        android:layout_marginTop="60dp"
+        android:visibility="invisible">
+    <androidx.fragment.app.FragmentContainerView
+        android:name="com.hanyong.unitconvert2.history_fragment"
+        android:id="@+id/area_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    </LinearLayout>
 
 </RelativeLayout>
