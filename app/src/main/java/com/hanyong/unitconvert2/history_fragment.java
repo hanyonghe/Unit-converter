@@ -2,6 +2,8 @@ package com.hanyong.unitconvert2;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +22,12 @@ public class history_fragment extends Fragment {
         textView = returnView.findViewById(R.id.tv_history);
      String temp = "";
      try {
-         assert getArguments() != null;
          if(getArguments().getString("record")!=null){
              temp = getArguments().getString("record");}
                 getArguments().remove("record");
-     }catch (Exception ignored) {}
+     }catch (Exception e) {
+         Log.d("Exception","getArguments() is null");
+     }
      textView.setText(temp);
         // this function is keep failing because I can not call the new Area class
      // it would be a good idea to move this button the the area activity but it will take too much space.

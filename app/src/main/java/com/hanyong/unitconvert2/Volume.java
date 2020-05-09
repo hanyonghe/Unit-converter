@@ -34,7 +34,9 @@ public class Volume extends AppCompatActivity implements AdapterView.OnItemSelec
     private static double from_rate = 0; // from_unit to square inch
     private static double to_rate = 0; // to_unit to square inch
 
-    private String[] volume_unit = {"square foot","square meter","square inch","square yard","acre","square mile"};
+    private String[] volume_unit = {"liquid gallon","liquid quart","liquid pint",
+            "liquid cup","fluid ounce","liter","US tablespoon",
+            "US teaspoon","cubic foot","cubic inch"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,49 +132,71 @@ public class Volume extends AppCompatActivity implements AdapterView.OnItemSelec
 
             //convert rate square meter
             switch (position){
-                case 0: from_rate = 0.092903;
+                case 0: from_rate = 1;
                     from_option = 0;
                     break;
-                case 1: from_rate = 1;
+                case 1: from_rate = 4;
                     from_option = 1;
                     break;
-                case 2: from_rate = 0.00064516;
+                case 2: from_rate = 8;
                     from_option = 2;
                     break;
-                case 3: from_rate = 0.836127;
+                case 3: from_rate = 15.7725;
                     from_option = 3;
                     break;
-                case 4: from_rate = 4046.86;
+                case 4: from_rate = 128;
                     from_option = 4;
                     break;
-                case 5: from_rate = 2.59e+6;
+                case 5: from_rate = 3.78541;
                     from_option = 5;
+                    break;
+                case 6: from_rate = 213.164;
+                    from_option = 6;
+                    break;
+                case 7: from_rate = 639.494;
+                    from_option = 7;
+                    break;
+                case 8: from_rate = 0.133681;
+                    from_option = 8;
+                    break;
+                case 9: from_rate = 231.00076;
+                    from_option = 9;
                     break;
             }
             calculate_from();
         }
         if(spinner.getId()==R.id.sp_volume_to){
 
-            //convert rate square meter
             switch (position){
-                case 0:
-                    to_rate = 0.092903;
+                case 0: to_rate = 1;
                     to_option = 0;
                     break;
-                case 1: to_rate = 1;
+                case 1: to_rate = 4;
                     to_option = 1;
                     break;
-                case 2: to_rate = 0.00064516;
+                case 2: to_rate = 8;
                     to_option = 2;
                     break;
-                case 3: to_rate = 0.836127;
+                case 3: to_rate = 15.7725;
                     to_option = 3;
                     break;
-                case 4: to_rate = 4046.86;
+                case 4: to_rate = 128;
                     to_option = 4;
                     break;
-                case 5: to_rate = 2.59e+6;
+                case 5: to_rate = 3.78541;
                     to_option = 5;
+                    break;
+                case 6: to_rate = 213.164;
+                    to_option = 6;
+                    break;
+                case 7: to_rate = 639.494;
+                    to_option = 7;
+                    break;
+                case 8: to_rate = 0.133681;
+                    to_option = 8;
+                    break;
+                case 9: to_rate = 231.00076;
+                    to_option = 9;
                     break;
             }
             calculate_from();
@@ -190,7 +214,7 @@ public class Volume extends AppCompatActivity implements AdapterView.OnItemSelec
         if(!"".equals(temp)) from_amount = Double.parseDouble(temp);
 
         //calculate the number should display in the 'to' line, and display it
-        double to_amount = from_amount * from_rate / to_rate;
+        double to_amount = from_amount *to_rate / from_rate ;
         DecimalFormat df = new DecimalFormat("#.00000");
         String temp1 = df.format(to_amount);
 //         if the string is too long, the edittext in the 'to' line should get higher
@@ -244,10 +268,13 @@ public class Volume extends AppCompatActivity implements AdapterView.OnItemSelec
             EditText et_to = findViewById(R.id.volume_editText_to);
             String text_from = et_from.getText().toString();
             String text_to = et_to.getText().toString();
+            if (text_from == "" | text_to == "") {
+                Toast.makeText(this, "make a convertion before saving", Toast.LENGTH_SHORT).show();
+                throw new NullPointerException("Invalid empty input");
+            }
             from_amount = Double.parseDouble(text_from);
             to_amount = Double.parseDouble(text_to);
             Record record = new Record(from_amount, to_amount, volume_unit[from_option], volume_unit[to_option]);
-            Toast.makeText(this, volume_unit[from_option] + ";" + volume_unit[to_option], Toast.LENGTH_SHORT).show();
             RecordDB db = new RecordDB(this);
             long insertId = db.insertRecord(record);
             if (insertId > 0) {
@@ -256,14 +283,15 @@ public class Volume extends AppCompatActivity implements AdapterView.OnItemSelec
             } else {
                 Toast.makeText(this, "Record not saved", Toast.LENGTH_SHORT).show();
             }
-        } catch (Throwable t){}
+        }catch (Exception e){
+            Log.d("Exception_are",e.getMessage());
+        }
     }
 
     public void clearDB(){
         RecordDB db = new RecordDB(this);
         db.deleteRecords();
-        Toast.makeText(this, "Database clear", Toast.LENGTH_SHORT).show();
-    }
+        }
 
 
 }

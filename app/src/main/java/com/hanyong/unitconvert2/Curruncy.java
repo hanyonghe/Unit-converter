@@ -34,7 +34,8 @@ public class Curruncy extends AppCompatActivity implements AdapterView.OnItemSel
     private static double from_rate = 0; // from_unit to square inch
     private static double to_rate = 0; // to_unit to square inch
 
-    private String[] curruncy_unit = {"US Dollar","UK Pound","Euro EUR","Japan JPY","China CNY","India INR"};
+    private String[] curruncy_unit = {"US Dollar","UK Pound","Euro EUR","Japan JPY",
+            "China CNY","India INR"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,12 +247,11 @@ public class Curruncy extends AppCompatActivity implements AdapterView.OnItemSel
             String text_to = et_to.getText().toString();
             if (text_from == "" | text_to == "") {
                 Toast.makeText(this, "make a convertion before saving", Toast.LENGTH_SHORT).show();
-                return;
+                throw new NullPointerException("Invalid empty input");
             }
             from_amount = Double.parseDouble(text_from);
             to_amount = Double.parseDouble(text_to);
             Record record = new Record(from_amount, to_amount, curruncy_unit[from_option], curruncy_unit[to_option]);
-            Toast.makeText(this, curruncy_unit[from_option] + ";" + curruncy_unit[to_option], Toast.LENGTH_SHORT).show();
             RecordDB db = new RecordDB(this);
             long insertId = db.insertRecord(record);
             if (insertId > 0) {
@@ -260,14 +260,15 @@ public class Curruncy extends AppCompatActivity implements AdapterView.OnItemSel
             } else {
                 Toast.makeText(this, "Record not saved", Toast.LENGTH_SHORT).show();
             }
-        }catch (Throwable t){}
+        }catch (Exception e){
+            Log.d("Exception_are",e.getMessage());
+        }
     }
 
     public void clearDB(){
         RecordDB db = new RecordDB(this);
         db.deleteRecords();
-        Toast.makeText(this, "Database clear", Toast.LENGTH_SHORT).show();
-    }
+        }
 
 
 }

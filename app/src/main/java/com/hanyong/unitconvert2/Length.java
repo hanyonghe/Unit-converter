@@ -34,7 +34,8 @@ public class Length extends AppCompatActivity implements AdapterView.OnItemSelec
     private static double from_rate = 0; // from_unit to square inch
     private static double to_rate = 0; // to_unit to square inch
 
-    private String[] length_unit = {"mile","kilometer","meter","yard","foot","inch","centimeter","millimeter"};
+    private String[] length_unit = {"mile","kilometer","meter","yard",
+            "foot","inch","centimeter","millimeter"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,10 +256,13 @@ public class Length extends AppCompatActivity implements AdapterView.OnItemSelec
         EditText et_to = findViewById(R.id.length_editText_to);
         String text_from = et_from.getText().toString();
         String text_to  = et_to.getText().toString();
+        if (text_from == "" | text_to == "") {
+            Toast.makeText(this, "make a convertion before saving", Toast.LENGTH_SHORT).show();
+            throw new NullPointerException("Invalid empty input");
+        }
         from_amount = Double.parseDouble(text_from);
         to_amount = Double.parseDouble(text_to);
         Record record = new Record(from_amount,to_amount,length_unit[from_option],length_unit[to_option]);
-        Toast.makeText(this,length_unit[from_option]+";"+length_unit[to_option],Toast.LENGTH_SHORT).show();
         RecordDB db = new RecordDB(this);
         long insertId = db.insertRecord(record);
         if(insertId > 0){
@@ -267,14 +271,16 @@ public class Length extends AppCompatActivity implements AdapterView.OnItemSelec
         }else{
             Toast.makeText(this, "Record not saved", Toast.LENGTH_SHORT).show();
         }
-        }catch (Throwable t){}
+        }catch (Exception e){
+            Log.d("Exception_are",e.getMessage());
+        }
     }
+
 
     public void clearDB(){
         RecordDB db = new RecordDB(this);
         db.deleteRecords();
-        Toast.makeText(this, "Database clear", Toast.LENGTH_SHORT).show();
-    }
+       }
 
 
 }

@@ -230,10 +230,13 @@ public class Temperature extends AppCompatActivity implements AdapterView.OnItem
         EditText et_to = findViewById(R.id.temperature_editText_to);
         String text_from = et_from.getText().toString();
         String text_to  = et_to.getText().toString();
-        from_amount = Double.parseDouble(text_from);
+            if (text_from == "" | text_to == "") {
+                Toast.makeText(this, "make a convertion before saving", Toast.LENGTH_SHORT).show();
+                throw new NullPointerException("Invalid empty input");
+            }
+            from_amount = Double.parseDouble(text_from);
         to_amount = Double.parseDouble(text_to);
         Record record = new Record(from_amount,to_amount,temperature_unit[from_option],temperature_unit[to_option]);
-        Toast.makeText(this,temperature_unit[from_option]+";"+temperature_unit[to_option],Toast.LENGTH_SHORT).show();
         RecordDB db = new RecordDB(this);
         long insertId = db.insertRecord(record);
         if(insertId > 0){
@@ -242,14 +245,15 @@ public class Temperature extends AppCompatActivity implements AdapterView.OnItem
         }else{
             Toast.makeText(this, "Record not saved", Toast.LENGTH_SHORT).show();
         }
-        }catch (Throwable t){}
+        }catch (Exception e){
+            Log.d("Exception_are",e.getMessage());
+        }
     }
 
     public void clearDB(){
         RecordDB db = new RecordDB(this);
         db.deleteRecords();
-        Toast.makeText(this, "Database clear", Toast.LENGTH_SHORT).show();
-    }
+        }
 
 
 }

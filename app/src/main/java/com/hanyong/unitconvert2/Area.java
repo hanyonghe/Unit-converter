@@ -41,6 +41,7 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area);
 
+        isFragmentShow = false;
         final RecordDB db = new RecordDB(this);
         //configure the spinner event listenner
         Spinner spinner_to = findViewById(R.id.sp_area_to);
@@ -105,7 +106,7 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
             for (Record record : records) {
                 history.append(record.getFrom_amount()).append(" "+record.getFrom_unit()).append(" = ").
                         append(record.getTo_amount()).append(" "+record.getTo_unit()).append(";\n");
-                Log.d("retrieve",record.getTo_unit());
+//                Log.d("retrieve",""+record.getTo_amount());
             }
         }
         fragement_text = history.toString();
@@ -237,35 +238,36 @@ public class Area extends AppCompatActivity implements AdapterView.OnItemSelecte
     }
 
     public void save_result(View view) {
-        try{
-        calculate_from();
-        double from_amount=0,to_amount=0;
-        EditText et_from = findViewById(R.id.area_editText_from);
-        EditText et_to = findViewById(R.id.area_editText_to);
-        String text_from = et_from.getText().toString();
-        String text_to  = et_to.getText().toString();
-        if(text_from ==""|text_from ==""){
-            Toast.makeText(this,"Make a convertion before save",Toast.LENGTH_SHORT).show();
+        try {
+            calculate_from();
+            double from_amount = 0, to_amount = 0;
+            EditText et_from = findViewById(R.id.area_editText_from);
+            EditText et_to = findViewById(R.id.area_editText_to);
+            String text_from = et_from.getText().toString();
+            String text_to = et_to.getText().toString();
+            if (text_from == "" | text_from == "") {
+                Toast.makeText(this, "Make a convertion before save", Toast.LENGTH_SHORT).show();
+                throw new NullPointerException("Invalid empty input");
+            }
+            from_amount = Double.parseDouble(text_from);
+            to_amount = Double.parseDouble(text_to);
+            Record record = new Record(from_amount, to_amount, area_unit[from_option], area_unit[to_option]);
+            RecordDB db = new RecordDB(this);
+            long insertId = db.insertRecord(record);
+            if (insertId > 0) {
+                Toast.makeText(this, "Record saved", Toast.LENGTH_SHORT).show();
+                showHistory();
+            } else {
+                Toast.makeText(this, "Record not saved", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            Log.d("Exception_are",e.getMessage());
         }
-        from_amount = Double.parseDouble(text_from);
-        to_amount = Double.parseDouble(text_to);
-        Record record = new Record(from_amount,to_amount,area_unit[from_option],area_unit[to_option]);
-        Toast.makeText(this,area_unit[from_option]+";"+area_unit[to_option],Toast.LENGTH_SHORT).show();
-        RecordDB db = new RecordDB(this);
-        long insertId = db.insertRecord(record);
-        if(insertId > 0){
-            Toast.makeText(this, "Record saved", Toast.LENGTH_SHORT).show();
-            showHistory();
-        }else{
-            Toast.makeText(this, "Record not saved", Toast.LENGTH_SHORT).show();
-        }}
-        catch (Throwable e){}
     }
 
     public void clearDB(){
         RecordDB db = new RecordDB(this);
         db.deleteRecords();
-        Toast.makeText(this, "Database clear", Toast.LENGTH_SHORT).show();
     }
 
 

@@ -2,10 +2,12 @@ package com.hanyong.unitconvert2;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.CrossProcessCursor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -34,10 +36,10 @@ public class RecordDB {
     public static final String CREATE_TABLE =
             "CREATE TABLE " + RECORD_TABLE + " ( "+
             RECORD_ID       + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            FROM_AMOUNT     + " DOUBLE NOT NULL, "+
-            TO_AMOUNT       + " DOUBLE NOT NULL, "+
-            FROM_UNIT       + " VARCHAR(20) NOT NULL, "+
-            TO_UNIT         + " VARCHAR(20) NOT NULL);";
+            FROM_AMOUNT     + " DOUBLE(8,4) , "+
+            TO_AMOUNT       + " DOUBLE(8,4) , "+
+            FROM_UNIT       + " VARCHAR(20) , "+
+            TO_UNIT         + " VARCHAR(20) );";
     public static final String DROP_TABLE =
             "DROP TABLE IF EXISTS " + RECORD_TABLE;
 
@@ -54,6 +56,12 @@ public class RecordDB {
 //            create table
             db.execSQL(CREATE_TABLE);
 //            insert one row
+            db.execSQL("INSERT INTO record VALUES(" +
+                    1244+"," +
+                    123.1234+"," +
+                    123.1234+"," +
+                    "METER"+"," +
+                    "FOOT"+");");
         }
 
 
@@ -98,8 +106,8 @@ public class RecordDB {
             try {
                 Record record = new Record(
                         cursor.getLong(RECORD_ID_COL),
-                        cursor.getLong(FROM_AMOUNT_COL),
-                        cursor.getLong(TO_AMOUNT_COL),
+                        cursor.getDouble(FROM_AMOUNT_COL),
+                        cursor.getDouble(TO_AMOUNT_COL),
                         cursor.getString(FROM_UNIT_COL),
                         cursor.getString(TO_UNIT_COL));
                  return record;
@@ -118,13 +126,16 @@ public class RecordDB {
         cv.put(FROM_UNIT,record.getFrom_unit());
         cv.put(TO_UNIT,record.getTo_unit());
         this.openWritableDB();
+        Log.d("decimal",""+record.getTo_amount()+"|"+record.getFrom_amount());
         long rowID = db.insert(RECORD_TABLE,null,cv);
         this.closeDB();
         return rowID;
     }
     public void deleteRecords(){
         this.openWritableDB();
-        db.execSQL("DELETE FROM " + RECORD_TABLE + " WHERE " + RECORD_ID + " != -1" );
+        db.execSQL(DROP_TABLE);
+        db.execSQL(CREATE_TABLE);
+//        db.execSQL("DELETE FROM " + RECORD_TABLE + " WHERE " + RECORD_ID + " != -1" );
         this.closeDB();
     }
 
